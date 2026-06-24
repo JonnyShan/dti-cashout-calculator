@@ -205,8 +205,8 @@ export default function App() {
               label="Income scenario"
               value={preset}
               options={[
-                { label: 'Single (NZ)', value: 'single', sub: '$120k' },
-                { label: 'Dual (NZ+AU)', value: 'dual', sub: '$120k + A$120k' },
+                { label: 'Single (NZ)', value: 'single', sub: '$180k' },
+                { label: 'Dual (NZ+AU)', value: 'dual', sub: '$180k + A$120k' },
               ]}
               onChange={applyPreset}
             />

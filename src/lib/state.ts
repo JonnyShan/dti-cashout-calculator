@@ -8,19 +8,19 @@ export type AppInputs = DtiInputs & ServiceabilityParams;
 
 /** Pre-loaded DTI defaults. */
 export const DEFAULTS: DtiInputs = {
-  salePrice: 1_750_000,
-  cashOut: 0,
-  nzSalary: 120_000,
+  salePrice: 1_800_000,
+  cashOut: 350_000,
+  nzSalary: 180_000,
   audIncome: 120_000,
-  fxRate: 1.21,
+  fxRate: 1.1,
   audShading: 80,
   rentFHWeekly: 950,
   rentRIWeekly: 2_000,
   rentTreatment: 75,
-  fhLoan: 642_000,
-  riLoan: 3_527_000,
+  fhLoan: 650_000,
+  riLoan: 3_600_000,
   dtiCap: 7,
-  interestRate: 4.47,
+  interestRate: 4.5,
 };
 
 /** Serviceability assumption defaults — outgoings, stress rate, tax. */
@@ -36,13 +36,13 @@ export type IncomePreset = 'single' | 'dual';
 
 /** NZ income only — the "what if I lose the Aussie income" scenario. */
 export const SINGLE_INCOME: Pick<DtiInputs, 'nzSalary' | 'audIncome'> = {
-  nzSalary: 120_000,
+  nzSalary: 180_000,
   audIncome: 0,
 };
 
 /** The dual-income default (NZ + AU). */
 export const DUAL_INCOME: Pick<DtiInputs, 'nzSalary' | 'audIncome'> = {
-  nzSalary: 120_000,
+  nzSalary: 180_000,
   audIncome: 120_000,
 };
 
@@ -134,7 +134,9 @@ export function parseFromQuery(search: string): Partial<AppInputs> {
 
 // --- localStorage ---------------------------------------------------------
 
-const LS_KEY = 'dti-cashout-v2';
+// Bumped to v3 when the default scenario changed, so returning visitors start
+// fresh on the new figures rather than seeing stale stored values.
+const LS_KEY = 'dti-cashout-v3';
 
 export function loadStored(): Partial<AppInputs> | null {
   try {

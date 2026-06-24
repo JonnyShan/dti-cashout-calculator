@@ -110,37 +110,37 @@ describe('edge cases', () => {
   });
 });
 
-describe('example default scenario', () => {
-  const example: DtiInputs = {
-    salePrice: 800_000,
+describe('default scenario (app defaults)', () => {
+  const scenario: DtiInputs = {
+    salePrice: 1_750_000,
     cashOut: 0,
-    nzSalary: 110_000,
-    audIncome: 45_000,
-    fxRate: 1.1,
+    nzSalary: 120_000,
+    audIncome: 120_000,
+    fxRate: 1.21,
     audShading: 80,
-    rentFHWeekly: 500,
-    rentRIWeekly: 450,
-    rentTreatment: 100,
-    fhLoan: 350_000,
-    riLoan: 1_450_000,
+    rentFHWeekly: 950,
+    rentRIWeekly: 2_000,
+    rentTreatment: 75,
+    fhLoan: 642_000,
+    riLoan: 3_527_000,
     dtiCap: 7,
-    interestRate: 6.0,
+    interestRate: 4.47,
   };
 
-  it('sits within the cap with no cash-out', () => {
-    const r = computeDti(example);
-    expect(r.assessedIncome).toBe(199_000);
-    expect(r.newTotalDebt).toBe(1_000_000);
-    expect(r.dti).toBeCloseTo(5.03, 2);
+  it('sits at DTI ~6.89 within the cap with no cash-out', () => {
+    const r = computeDti(scenario);
+    expect(r.assessedIncome).toBeCloseTo(351_210, 0);
+    expect(r.newTotalDebt).toBe(2_419_000);
+    expect(r.dti).toBeCloseTo(6.89, 2);
     expect(r.pass).toBe(true);
-    expect(r.maxCashOut).toBeCloseTo(393_000, 0);
+    expect(r.maxCashOut).toBeCloseTo(39_470, 0);
   });
 
-  it('tips over the cap once cash-out exceeds the ceiling', () => {
-    const under = computeDti({ ...example, cashOut: 350_000 });
+  it('tips over the cap once cash-out exceeds the ~39k ceiling', () => {
+    const under = computeDti({ ...scenario, cashOut: 35_000 });
     expect(under.pass).toBe(true);
 
-    const over = computeDti({ ...example, cashOut: 450_000 });
+    const over = computeDti({ ...scenario, cashOut: 100_000 });
     expect(over.pass).toBe(false);
     expect(over.incomeGap).toBeGreaterThan(0); // drives the red income state
   });

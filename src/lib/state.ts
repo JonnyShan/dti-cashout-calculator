@@ -6,26 +6,26 @@ import type { ServiceabilityParams } from './serviceability';
 /** Full app state: the DTI inputs plus the serviceability assumptions. */
 export type AppInputs = DtiInputs & ServiceabilityParams;
 
-/** Pre-loaded DTI defaults — a neutral example scenario. */
+/** Pre-loaded DTI defaults. */
 export const DEFAULTS: DtiInputs = {
-  salePrice: 800_000,
+  salePrice: 1_750_000,
   cashOut: 0,
-  nzSalary: 110_000,
-  audIncome: 45_000,
-  fxRate: 1.1,
+  nzSalary: 120_000,
+  audIncome: 120_000,
+  fxRate: 1.21,
   audShading: 80,
-  rentFHWeekly: 500,
-  rentRIWeekly: 450,
-  rentTreatment: 100,
-  fhLoan: 350_000,
-  riLoan: 1_450_000,
+  rentFHWeekly: 950,
+  rentRIWeekly: 2_000,
+  rentTreatment: 75,
+  fhLoan: 642_000,
+  riLoan: 3_527_000,
   dtiCap: 7,
-  interestRate: 6.0,
+  interestRate: 4.47,
 };
 
 /** Serviceability assumption defaults — outgoings, stress rate, tax. */
 export const SERVICEABILITY_DEFAULTS: ServiceabilityParams = {
-  livingExpenses: 45_000,
+  livingExpenses: 100_000,
   stressRate: 8.5,
   taxRate: 30,
 };
@@ -36,14 +36,14 @@ export type IncomePreset = 'single' | 'dual';
 
 /** NZ income only — the "what if I lose the Aussie income" scenario. */
 export const SINGLE_INCOME: Pick<DtiInputs, 'nzSalary' | 'audIncome'> = {
-  nzSalary: 110_000,
+  nzSalary: 120_000,
   audIncome: 0,
 };
 
 /** The dual-income default (NZ + AU). */
 export const DUAL_INCOME: Pick<DtiInputs, 'nzSalary' | 'audIncome'> = {
-  nzSalary: 110_000,
-  audIncome: 45_000,
+  nzSalary: 120_000,
+  audIncome: 120_000,
 };
 
 /** Which preset (if any) the current income figures correspond to. */
